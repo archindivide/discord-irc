@@ -2,7 +2,7 @@
 
 > Connects [Discord](https://discord.com/) and [IRC](https://www.ietf.org/rfc/rfc1459.txt) channels by sending messages back and forth.
 
->This is an **opinionated** fork that adds irc -> discord channel topic syncing and an optional config setting to disable username stripping from !commands sent from irc -> discord.
+>This is an **opinionated** fork that adds irc -> discord channel topic syncing and a setting to disable username stripping from !commands sent from irc -> discord.
 
 ## Example
 ![discord-irc](http://i.imgur.com/oI6iCrf.gif)
