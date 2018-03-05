@@ -2,6 +2,8 @@
 
 > Connects [Discord](https://discord.com/) and [IRC](https://www.ietf.org/rfc/rfc1459.txt) channels by sending messages back and forth.
 
+>This is an **opinionated** fork that adds irc -> discord channel topic syncing and an optional config setting to disable username stripping from !commands sent from irc -> discord.
+
 ## Example
 ![discord-irc](http://i.imgur.com/oI6iCrf.gif)
 
@@ -112,6 +114,12 @@ First you need to create a Discord bot user, which you can do by following the i
     // Makes the bot hide the username prefix for messages that start
     // with one of these characters (commands):
     "commandCharacters": ["!", "."],
+    // Enables stripping nicknames from commands sent from irc to discord.
+    // Useful for discord channels with bot commands, annoying for ones that don't
+    // Defaults to true.
+    "discordCommandFormatting": true,
+    // One-way syncing of IRC to discord channel topics. Defaults to false.
+    "syncDiscordTopic": false,
     "ircStatusNotices": true, // Enables notifications in Discord when people join/part in the relevant IRC channel
     "ignoreUsers": {
       "irc": ["irc_nick1", "irc_nick2"], // Ignore specified IRC nicks and do not send their messages to Discord.
