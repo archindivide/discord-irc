@@ -25,6 +25,7 @@ describe('Bot Events', function () {
     bot.sendToIRC = sandbox.stub();
     bot.sendToDiscord = sandbox.stub();
     bot.sendExactToDiscord = sandbox.stub();
+    bot.updateDiscordTopic = sandbox.stub();
     return bot;
   };
 
@@ -102,6 +103,22 @@ describe('Bot Events', function () {
     const text = 'hi';
     this.bot.ircClient.emit('message', author, channel, text);
     this.bot.sendToDiscord.should.have.been.calledWithExactly(author, channel, text);
+  });
+
+  it('should call updateDiscordTopic upon topic event with config setting', function () {
+    const bot = createBot({ ...config, syncDiscordTopic: true });
+    bot.connect();
+    const channel = '#irc';
+    const topic = 'This is a test topic.';
+    bot.ircClient.emit('topic', channel, topic);
+    bot.updateDiscordTopic.should.have.been.calledWithExactly(channel, topic);
+  });
+
+  it('should not call updateDiscordTopic upon topic event by default', function () {
+    const channel = '#irc';
+    const topic = 'This is a test topic.';
+    this.bot.ircClient.emit('topic', channel, topic);
+    this.bot.updateDiscordTopic.should.not.have.been.called;
   });
 
   it('should send notices to discord', function () {

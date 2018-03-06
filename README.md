@@ -96,6 +96,7 @@ First you need to create a Discord bot user, which you can do by following the i
     // Defaults to true.
     "discordCommandFormatting": true,
     // One-way syncing of IRC to discord channel topics. Defaults to false.
+    // This feature REQUIRES the bot be in a roll with "Manage Channels" permission for the guild!
     "syncDiscordTopic": false,
     "ircStatusNotices": true, // Enables notifications in Discord when people join/part in the relevant IRC channel
     "ignoreUsers": {

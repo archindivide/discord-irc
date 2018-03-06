@@ -31,11 +31,17 @@ describe('Bot', function () {
     this.debugSpy = sandbox.stub(logger, 'debug');
     this.errorSpy = sandbox.stub(logger, 'error');
     this.sendStub = sandbox.stub();
+    this.setTopicStub = sandbox.stub();
 
     this.discordUsers = new discord.Collection();
     irc.Client = ClientStub;
     this.guild = createGuildStub();
-    discord.Client = createDiscordStub(this.sendStub, this.guild, this.discordUsers);
+    discord.Client = createDiscordStub(
+      this.sendStub,
+      this.setTopicStub,
+      this.guild,
+      this.discordUsers
+    );
 
     ClientStub.prototype.say = sandbox.stub();
     ClientStub.prototype.send = sandbox.stub();
@@ -527,6 +533,16 @@ describe('Bot', function () {
     this.sendStub.getCall(1).args.should.deep.equal([text]);
   });
 
+  it('should show usernames for commands to Discord if discordCommandFormatting is false', function () {
+    const bot = new Bot({ ...config, discordCommandFormatting: false });
+    bot.connect();
+    const username = 'ircuser';
+    const text = '!command';
+
+    bot.sendToDiscord(username, '#irc', text);
+    this.sendStub.getCall(0).args.should.deep.equal(['**<ircuser>** !command']);
+  });
+
   it('should use nickname instead of username when available', function () {
     const text = 'testmessage';
     const newConfig = { ...config, ircNickColor: false };
@@ -920,4 +936,16 @@ describe('Bot', function () {
       ClientStub.prototype.say.should.not.have.been.called;
     }
   );
+
+  it('should send a setTopic to a connected discord channel', function () {
+    const topic = 'This is a test topic.';
+    this.bot.updateDiscordTopic('#irc', topic);
+    this.setTopicStub.should.have.been.calledWith(topic);
+  });
+
+  it('should not send a setTopic to discord channel it is not in', function () {
+    const topic = 'This is a test topic.';
+    this.bot.updateDiscordTopic('#not-a-channel', topic);
+    this.setTopicStub.should.not.have.been.called;
+  });
 });
