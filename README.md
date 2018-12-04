@@ -39,10 +39,6 @@ import config from './config.json';
 discordIRC(config);
 ```
 
-When installing the library, you may encounter an error relating to the installation of `iconv` or `node-icu-charset-detector`.
-These are optional dependencies which allow you to set the target encoding of messages sent to Discord, as detailed below in the README.
-Without these dependencies and the relevant setting, messages that aren't sent in UTF-8 may be corrupted when copied to Discord.
-
 ## Configuration
 First you need to create a Discord bot user, which you can do by following the instructions [here](https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token).
 
@@ -75,7 +71,12 @@ First you need to create a Discord bot user, which you can do by following the i
     },
     "ircOptions": { // Optional node-irc options
       "floodProtection": false, // On by default
-      "floodProtectionDelay": 1000 // 500 by default
+      "floodProtectionDelay": 1000, // 500 by default
+      "port": "6697", // 6697 by default
+      "secure": true, // enable SSL, false by default
+      "sasl": true, // false by default
+      "username": "test", // nodeirc by default
+      "password": "p455w0rd" // empty by default
     },
     "format": { // Optional custom formatting options
       // Patterns, represented by {$patternName}, are replaced when sending messages
