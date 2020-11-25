@@ -4,6 +4,8 @@
 
 >This is an **opinionated** fork that adds bidirectional channel topic syncing, a topic change alert message, and a setting to disable username stripping from !commands sent from irc -> discord.
 
+>This is an **opinionated** fork that adds bidirectional channel topic syncing, a topic change alert message, and a setting to disable username stripping from !commands sent from irc -> discord.
+
 ## Example
 ![discord-irc](http://i.imgur.com/oI6iCrf.gif)
 
