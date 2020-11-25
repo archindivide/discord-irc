@@ -3,7 +3,8 @@ import events from 'events';
 import sinon from 'sinon';
 import discord from 'discord.js';
 
-export default function createDiscordStub(sendStub) {
+export default function createDiscordStub(sendStub, setTopicStub, guild, discordUsers) {
+
   return class DiscordStub extends events.EventEmitter {
     constructor() {
       super();
@@ -72,6 +73,18 @@ export default function createDiscordStub(sendStub) {
       return {
         cdn: discord.Constants.Endpoints.CDN(''),
       };
+	}
+    guildChannels() {
+      const channels = new discord.Collection();
+      channels.set('1234', {
+        name: 'discord',
+        id: '1234',
+        type: 'text',
+        send: sendStub,
+        setTopic: setTopicStub,
+        guild
+      });
+      return channels;
     }
 
     login() {
