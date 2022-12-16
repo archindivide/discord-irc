@@ -2,6 +2,10 @@
 
 > Connects [Discord](https://discord.com/) and [IRC](https://www.ietf.org/rfc/rfc1459.txt) channels by sending messages back and forth.
 
+>This is an **opinionated** fork that adds bidirectional channel topic syncing, a topic change alert message, and a setting to disable username stripping from !commands sent from irc -> discord.
+
+>This is an **opinionated** fork that adds bidirectional channel topic syncing, a topic change alert message, and a setting to disable username stripping from !commands sent from irc -> discord.
+
 ## Example
 ![discord-irc](http://i.imgur.com/oI6iCrf.gif)
 
@@ -112,6 +116,16 @@ First you need to create a Discord bot user, which you can do by following the i
     // Makes the bot hide the username prefix for messages that start
     // with one of these characters (commands):
     "commandCharacters": ["!", "."],
+    // Enables stripping nicknames from commands sent from irc to discord.
+    // Useful for discord channels with bot commands, annoying for ones that don't
+    // Defaults to true.
+    "discordCommandFormatting": true,
+    // Bi-directional syncing of channel topics. Defaults to false.
+    // This feature REQUIRES the bot be in a roll with "Manage Channels" permission for the guild on discord
+    // and have proper permissions to change the channel topic in IRC.
+    "syncTopic": false,
+    // Post a simple (non-pinging) message in discord when the topic is changed
+    "topicAlert": false,
     "ircStatusNotices": true, // Enables notifications in Discord when people join/part in the relevant IRC channel
     "ignoreUsers": {
       "irc": ["irc_nick1", "irc_nick2"], // Ignore specified IRC nicks and do not send their messages to Discord.
